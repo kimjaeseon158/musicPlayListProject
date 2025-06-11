@@ -1,0 +1,10 @@
+{
+  "name": "MusicPlayList",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "concurrently \"npm --prefix front start\" \"npm --prefix back start\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
