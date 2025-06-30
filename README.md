@@ -25,7 +25,7 @@ const [role, setRole] = useState("admin");
 
 ---
 
-## 🔎 입력 필드 관리
+## 입력 필드 관리
 
 ```js
 const handleChange = (e) => {
