@@ -153,7 +153,7 @@ export const HandleLogin = async (id, password, dataType, admin_code) => {
 
 ---
 
-## 로그인 정보 검사 함수 설명
+## 로그인 정보 검사(`validation` 모듈) 함수 설명
 
 ```js
 export const validation = async ({ id, password, admin_code, role, rgxCnd, setErrors }) => {
