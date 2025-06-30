@@ -99,7 +99,7 @@ if (loginsuccess.success === "admin") {
 
 ---
 
-## HandleLogin 함수 설명
+## DB & 백엔드 연결 함수 설명
 
 ```js
 export const HandleLogin = async (id, password, dataType, admin_code) => {
@@ -153,7 +153,7 @@ export const HandleLogin = async (id, password, dataType, admin_code) => {
 
 ---
 
-## validation 함수 설명
+## 로그인 정보 검사 함수 설명
 
 ```js
 export const validation = async ({ id, password, admin_code, role, rgxCnd, setErrors }) => {
