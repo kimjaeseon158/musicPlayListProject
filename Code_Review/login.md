@@ -29,10 +29,16 @@ UX 향상을 위해 애니메이션 효과와 세션 저장 기능을 포함하�
 역할에 따라 입력 폼을 동적으로 전환하며, 부드러운 애니메이션으로 UX를 향상합니다.
 
 ```jsx
+// 역할 상태를 저장하는 state (초기값: 'admin')
+// 'admin' 또는 'staff' 값에 따라 로그인 폼이 전환됨
 const [role, setRole] = useState("admin");
 
 <motion.div
+  // 역할에 따라 슬라이딩 애니메이션 위치 조정
+  // admin이면 왼쪽(0%), staff이면 오른쪽(100%)으로 이동
   animate={{ x: role === "admin" ? "0%" : "100%" }}
+
+  // ... 생략된 나머지 props (transition, initial 등 포함 가능)
   ...
 />
 ```
