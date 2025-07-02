@@ -92,9 +92,39 @@ const isValid = await validation({
 
 ---
 
+## DB & 백엔드 연결 함수 설명
+
+```js
+// ✅ 핵심 정규식 분기 처리만 남긴 예시
+const idRegex = role === "admin" ? rgxCnd.adminId : rgxCnd.staffId;
+const passwordRegex = role === "admin" ? rgxCnd.adminPassword : rgxCnd.staffPw;
+
+const newErrors = {
+  idError: idRegex.test(id) ? "" : "아이디 오류",
+  passwordError: passwordRegex.test(password) ? "" : "비밀번호 오류",
+};
+
+// 관리자일 경우 OTP 유효성도 검사
+if (role === "admin") {
+  if (!admin_code || admin_code.length !== 6) {
+    newErrors.admin_codeError = "6자리 숫자여야 합니다.";
+  }
+}
+```
+- dataType에 따라 관리자 로그인과 일반 사용자 로그인 데이터 구분 처리
+
+- fetch를 통해 백엔드 API에 POST 요청
+
+- 성공 시 사용자 역할(user 또는 admin)과 관련 데이터를 반환
+
+- 실패 시 success: false 반환 및 에러 콘솔 출력
+
+---
+
 ## 로그인 처리 및 라우팅
 
 ```js
+// ✅ DB 요청완료후 페이지 전환
 if (loginsuccess.success === "admin") {
   setFadeOut(true);
   setUser("admin");
@@ -114,93 +144,24 @@ if (loginsuccess.success === "admin") {
 
 ---
 
-## DB & 백엔드 연결 함수 설명
-
-```js
-export const HandleLogin = async (id, password, dataType, admin_code) => {
-    try {
-        const loginData = dataType === "check_admin_login"
-            ? { id, password, admin_code }
-            : { id, password };
-
-        const response = await fetch("http://127.0.0.1:8000/api/items/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                data_type: dataType,
-                data: loginData
-            })
-        });
-        const data = await response.json();
-        console.log("로그인 응답 데이터:", data.data.user_data);
-
-        if (data.message === "check_user_login 처리 완료!") {
-            return { 
-                success: "user", 
-                message: data.message, 
-                employee_number: data.data.employee_number,  
-                name: data.data.user_name  
-            };
-        } else if (data.message === "check_admin_login 처리 완료!") {
-            return { 
-                success: "admin", 
-                message: data.message, 
-                user_Data: data.data.user_data 
-            };
-        } else {
-            return { success: false, message: data.message }; 
-        }
-    } catch (error) {
-        console.error("서버 통신 오류:", error);
-        return false;
-    }
-};
-```
-- dataType에 따라 관리자 로그인과 일반 사용자 로그인 데이터 구분 처리
-
-- fetch를 통해 백엔드 API에 POST 요청
-
-- 성공 시 사용자 역할(user 또는 admin)과 관련 데이터를 반환
-
-- 실패 시 success: false 반환 및 에러 콘솔 출력
-
----
-
 ## 로그인 정보 검사(`validation` 모듈) 함수 설명
 
 ```js
-export const validation = async ({ id, password, admin_code, role, rgxCnd, setErrors }) => {
-    const idRegex = role === "admin" ? rgxCnd.adminId : rgxCnd.staffId;
-    const passwordRegex = role === "admin" ? rgxCnd.adminPassword : rgxCnd.staffPw;
-    const otpRegex = role === "admin" ? rgxCnd.adminOtp : null;
+// ✅ 핵심 정규식 분기 처리만 남긴 예시
+const idRegex = role === "admin" ? rgxCnd.adminId : rgxCnd.staffId;
+const passwordRegex = role === "admin" ? rgxCnd.adminPassword : rgxCnd.staffPw;
 
-    const newErrors = {
-        idError: idRegex.test(id) ? "" : "아이디를 잘못 입력하셨습니다",
-        passwordError: passwordRegex.test(password) ? "" : "비밀번호를 잘못 입력하셨습니다",
-        admin_codeError: ""
-    };
-
-    if (role === "admin") {
-        if (!admin_code || admin_code.length !== 6) {
-            newErrors.admin_codeError = "인증코드는 6자리 숫자여야 합니다.";
-        } else if (!otpRegex.test(admin_code)) {
-            newErrors.admin_codeError = "인증코드 형식이 올바르지 않습니다.";
-        }
-    }
-
-    setErrors(newErrors);
-
-    if (newErrors.idError || newErrors.passwordError || newErrors.admin_codeError) {
-        return false;
-    }
-
-    return {
-        success: true,
-        dataType: role === "admin" ? "check_admin_login" : "check_user_login"
-    };
+const newErrors = {
+  idError: idRegex.test(id) ? "" : "아이디 오류",
+  passwordError: passwordRegex.test(password) ? "" : "비밀번호 오류",
 };
+
+// 관리자일 경우 OTP 유효성도 검사
+if (role === "admin") {
+  if (!admin_code || admin_code.length !== 6) {
+    newErrors.admin_codeError = "6자리 숫자여야 합니다.";
+  }
+}
 ```
 - 역할(role)에 따라 아이디, 비밀번호, 인증코드(OTP)의 유효성 검사 수행
 
