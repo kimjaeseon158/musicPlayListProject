@@ -39,3 +39,5 @@ return { success: false };
 - fetch를 통해 백엔드 API에 POST 요청
 - 성공 시 사용자 역할(user 또는 admin)과 관련 데이터를 반환
 - 실패 시 success: false 반환 및 에러 콘솔 출력
+
+👉 [로그인 컴포넌트 보기](./Code_Review/login.md)
