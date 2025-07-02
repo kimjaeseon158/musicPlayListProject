@@ -53,26 +53,35 @@ const [role, setRole] = useState("admin");
 입력 이벤트를 switch-case로 분기하여, 역할에 따라 알맞은 상태 업데이트를 수행합니다.
 
 ```js
+// 역할에 따라 입력 상태 업데이트
 const handleChange = (e) => {
   const { id, value } = e.target;
+
   switch (id) {
+    // ID 입력
     case "adminId":
     case "staffId":
       setId(value);
       break;
+
+    // 비밀번호 입력
     case "adminPassword":
     case "staffPw":
       setPassword(value);
       break;
+
+    // 관리자 OTP (숫자만 허용)
     case "adminOtp":
       if (/^\d*$/.test(value)) {
         setadmin_code(value);
       }
       break;
+
     default:
       console.log("값이 입력되지 않음");
   }
 };
+
 ```
 
 - 역할별로 `id`와 `password` 필드의 `id` 값이 다르기 때문에 switch-case 문으로 분기 처리합니다.
@@ -85,18 +94,18 @@ const handleChange = (e) => {
 입력된 값이 정해진 정규식에 맞는지 외부 모듈에서 검사하며, 검사 결과에 따라 오류 메시지를 출력합니다.
 
 ```js
+// 입력값 유효성 검사 실행
 const isValid = await validation({
-  id,
-  setId,
-  password,
-  setPassword,
-  admin_code,
-  setadmin_code,
-  role,
-  rgxCnd,
-  setErrors
+  id,             // 사용자 ID
+  setId,          // ID 상태 업데이트 함수
+  password,       // 비밀번호
+  setPassword,    // 비밀번호 상태 업데이트 함수
+  admin_code,     // 관리자 OTP 코드
+  setadmin_code,  // OTP 상태 업데이트 함수
+  role,           // 현재 역할(admin or staff)
+  rgxCnd,         // 정규식 조건 모음
+  setErrors       // 에러 상태 업데이트 함수
 });
-
 ```
 
 - 외부 `validation` 함수를 호출하여 입력값의 유효성을 검사합니다.
