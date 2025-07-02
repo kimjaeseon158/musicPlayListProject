@@ -18,6 +18,8 @@ UX 향상을 위해 애니메이션 효과와 세션 저장 기능을 포함하�
 - [캘린더 컴포넌트 리뷰](./Code_Review/calender.md)
 - [어드민페이지 컴포넌트 리뷰](./Code_Review/adminPage.md)
 
+---
+
 ## 요약 테이블
 
 | 항목     | 설명                                        |
