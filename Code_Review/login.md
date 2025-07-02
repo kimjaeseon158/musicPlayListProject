@@ -26,6 +26,8 @@ UX 향상을 위해 애니메이션 효과와 세션 저장 기능을 포함하�
 
 ## 역할 전환 UI 처리
 
+역할에 따라 입력 폼을 동적으로 전환하며, 부드러운 애니메이션으로 UX를 향상합니다.
+
 ```jsx
 const [role, setRole] = useState("admin");
 
@@ -41,6 +43,8 @@ const [role, setRole] = useState("admin");
 ---
 
 ## 입력 필드 관리
+
+입력 이벤트를 switch-case로 분기하여, 역할에 따라 알맞은 상태 업데이트를 수행합니다.
 
 ```js
 const handleChange = (e) => {
@@ -72,6 +76,8 @@ const handleChange = (e) => {
 
 ## 유효성 검사 (`validation` 모듈)
 
+입력된 값이 정해진 정규식에 맞는지 외부 모듈에서 검사하며, 검사 결과에 따라 오류 메시지를 출력합니다.
+
 ```js
 const isValid = await validation({
   id,
@@ -94,7 +100,7 @@ const isValid = await validation({
 
 ## DB & 백엔드 연결 함수 설명
 
-사용자가 입력한 로그인 정보를 Django 백엔드로 전달하고, 응답 결과에 따라 로그인 성공 여부 및 사용자 역할을 판별합니다.
+사용자가 입력한 로그인 정보를 백엔드로 전달하고, 응답 결과에 따라 로그인 성공 여부 및 사용자 역할을 판별합니다.
 
 ```js
 // ✅ 역할에 따라 전송 데이터 구조 설정
@@ -125,16 +131,15 @@ return { success: false };
 }
 ```
 - dataType에 따라 관리자 로그인과 일반 사용자 로그인 데이터 구분 처리
-
 - fetch를 통해 백엔드 API에 POST 요청
-
 - 성공 시 사용자 역할(user 또는 admin)과 관련 데이터를 반환
-
 - 실패 시 success: false 반환 및 에러 콘솔 출력
 
 ---
 
-## 로그인 처리 및 라우팅
+## 로그인 성공 처리 및 라우팅
+
+로그인 성공 시, 사용자 정보를 세션에 저장하고 일정 시간 후 각 역할에 맞는 대시보드 페이지로 이동시킵니다.
 
 ```js
 // ✅ DB 요청완료후 페이지 전환
@@ -159,6 +164,8 @@ if (loginsuccess.success === "admin") {
 
 ## 로그인 정보 검사(`validation` 모듈) 함수 설명
 
+역할에 따라 정규식을 분기하여 유효성 검사를 수행하고, 조건을 만족하지 않으면 오류 메시지를 상태에 반영합니다.
+
 ```js
 // ✅ 핵심 정규식 분기 처리만 남긴 예시
 const idRegex = role === "admin" ? rgxCnd.adminId : rgxCnd.staffId;
@@ -177,11 +184,8 @@ if (role === "admin") {
 }
 ```
 - 역할(role)에 따라 아이디, 비밀번호, 인증코드(OTP)의 유효성 검사 수행
-
 - 오류 메시지를 setErrors를 통해 상태에 반영
-
 - 모든 검사 통과 시 로그인 타입(dataType) 정보를 반환
-
 - 검사 실패 시 false 반환
 
 ---
