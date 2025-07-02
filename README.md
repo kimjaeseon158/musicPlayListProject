@@ -46,3 +46,4 @@
 - [로그인 컴포넌트 리뷰](./Code_Review/login.md)
 - [캘린더 컴포넌트 리뷰](./Code_Review/calender.md)
 - [어드민페이지 컴포넌트 리뷰](./Code_Review/adminPage.md)
+- [백엔드 API 연동 및 데이터 처리 리뷰](./Code_Review/DB연동.md)
