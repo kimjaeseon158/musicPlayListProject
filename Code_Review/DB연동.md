@@ -42,7 +42,7 @@ return { success: false };
 - 성공 시 사용자 역할(user 또는 admin)과 관련 데이터를 반환
 - 실패 시 success: false 반환 및 에러 콘솔 출력
 
-👉 [로그인 컴포넌트 보기](./Code_Review/login.md)
+👉 [로그인 컴포넌트 보기](./login.md)
 
 ---
 
@@ -79,6 +79,6 @@ const submitWorkInfo = async (params) => {
 - 이런 구조는 네트워크 통신 코드를 분리해 재사용성과 유지보수성을 높이는 데 유리합니다.
 - 오류 처리 및 응답 확인은 호출부에서 별도로 관리할 수 있습니다.
 
-👉 [로그인 컴포넌트 보기](./Code_Review/login.md)
+👉 [캘린더 컴포넌트 보기](./calender.md)
 
 ---
